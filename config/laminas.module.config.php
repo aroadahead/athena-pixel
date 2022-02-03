@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 use AthenaPixel\Controller\Factory\IndexControllerFactory;
 use AthenaPixel\Controller\IndexController;
+use AthenaPixel\Service\Listener\Factory\LoadJsAssetsListenerFactory;
 
 return [
     'view_manager' => [
@@ -17,7 +18,9 @@ return [
         ]
     ],
     'service_manager' => [
-        'factories' => []
+        'factories' => [
+            'loadJsAssetsListener' => LoadJsAssetsListenerFactory::class
+        ]
     ],
     'translator' => [],
     'view_helpers' => [],
