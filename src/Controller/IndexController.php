@@ -10,8 +10,6 @@ class IndexController extends PixelController
 {
     public function aliveAction(): JsonModel
     {
-        $view = new JsonModel();
-        $view -> setVariable('data', ['status' => 'alive']);
-        return $view;
+        return new JsonModel(['status' => 'alive']);
     }
 }
