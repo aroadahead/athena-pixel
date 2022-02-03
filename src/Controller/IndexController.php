@@ -10,6 +10,7 @@ class IndexController extends PixelController
 {
     public function aliveAction(): ViewModel
     {
+        $this->getEvent()->getViewModel()->setTerminal(true);
         return new ViewModel(['data' => ['status' => 'alive']]);
     }
 }
