@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace AthenaPixel\Controller;
 
-use Laminas\View\Model\JsonModel;
+use Laminas\View\Model\ViewModel;
 
 class IndexController extends PixelController
 {
-    public function aliveAction(): JsonModel
+    public function aliveAction(): ViewModel
     {
-        return new JsonModel(['status' => 'alive']);
+        return new ViewModel(['data' => ['status' => 'alive']]);
     }
 }
