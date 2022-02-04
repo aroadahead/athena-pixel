@@ -71,7 +71,7 @@ abstract class AbstractLoadAssetsListener extends AbstractServiceListener
     public const CROSSORIGIN_ANONYMOUS = ['crossorigin' => 'anonymous'];
 
     protected static ?int $dpId = null;
-    protected static ?RendererInterface $renderer;
+    protected static ?RendererInterface $renderer=null;
 
     protected function getDesignPackageId(): int
     {
