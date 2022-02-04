@@ -9,7 +9,7 @@ use Laminas\Mvc\MvcEvent;
 use Laminas\Stdlib\ArrayUtils;
 use function array_push;
 
-class LoadJsAssetsListener extends AbstractLoadAssetsListener
+class LoadCssAssetsListener extends AbstractLoadAssetsListener
 {
     use QueueAssetsTrait;
 
@@ -27,32 +27,34 @@ class LoadJsAssetsListener extends AbstractLoadAssetsListener
     public function assembleAssets(MvcEvent $e): void
     {
         if (!$e -> getRequest() -> isXmlHttpRequest()) {
-            $assets = $this -> queue(DesignPackageAssetModel ::getAllByJsDesignPackage(
+            $assets = $this -> queue(DesignPackageAssetModel ::getAllByCssDesignPackage(
                 $this -> getDesignPackageId()));
             foreach ($assets as $asset) {
-                array_push($this -> loadedFiles, $this -> loadJsAsset($asset));
+                array_push($this -> loadedFiles, $this -> loadCssAsset($asset));
             }
         }
     }
 
-    protected function loadJsAsset(DesignPackageAsset $asset): string
+    protected function loadCssAsset(DesignPackageAsset $asset): string
     {
-        $filePath = $this -> getFilePath($asset -> getType(), $asset -> getFile(), static::TYPE_JS,
+        $filePath = $this -> getFilePath($asset -> getType(), $asset -> getFile(), static::TYPE_CSS,
             $asset -> getSkinsArgs());
+        $media = self::TYPE_SCREEN_PROJECTION;
+        $conditional = '';
+        if (!is_null($asset -> getConditional())) {
+            $conditional = $asset -> getConditional();
+        }
         $extra = [];
         if ($asset -> isCrossOriginAnonymous()) {
             $extra = self::CROSSORIGIN_ANONYMOUS;
-        }
-        if (!is_null($asset -> getConditional())) {
-            $extra['conditional'] = $asset -> getConditional();
         }
         if (!is_null($asset -> getExtra())) {
             $extra = ArrayUtils ::merge($extra, $asset -> getExtra());
         }
         if ($asset -> getMethod() === 'append' || $asset -> getMethod() === null) {
-            $this -> appendJsFile($filePath, $extra);
+            $this -> appendStylesheet($filePath, $media, $conditional, $extra);
         } elseif ($asset -> getMethod() === 'prepend') {
-            $this -> prependJsFile($filePath, $extra);
+            $this -> prependStylesheet($filePath, $media, $conditional, $extra);
         }
         return $filePath;
     }

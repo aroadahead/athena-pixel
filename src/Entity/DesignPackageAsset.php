@@ -11,6 +11,7 @@ namespace AthenaPixel\Entity;
  * Import Statements
  */
 use Application\Entity\AbstractEntity;
+use Laminas\Serializer\Adapter\PhpSerialize;
 
 /**
  * Class DesignPackageAsset
@@ -20,6 +21,8 @@ use Application\Entity\AbstractEntity;
  */
 class DesignPackageAsset extends AbstractEntity
 {
+    protected static ?PhpSerialize $serialize = null;
+
     /**
      * Return name.
      *
@@ -108,7 +111,10 @@ class DesignPackageAsset extends AbstractEntity
     public function getExtra(): array|null
     {
         if (!is_null($this -> get('extra'))) {
-            return unserialize($this -> get('extra'));
+            if(self::$serialize === null){
+                self::$serialize = new PhpSerialize();
+            }
+            return self::$serialize->unserialize($this->get('extra'));
         }
         return null;
     }

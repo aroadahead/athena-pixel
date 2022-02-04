@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 use AthenaPixel\Controller\Factory\IndexControllerFactory;
 use AthenaPixel\Controller\IndexController;
+use AthenaPixel\Service\Listener\Factory\LoadCssAssetsListenerFactory;
 use AthenaPixel\Service\Listener\Factory\LoadJsAssetsListenerFactory;
 
 return [
@@ -19,7 +20,8 @@ return [
     ],
     'service_manager' => [
         'factories' => [
-            'loadJsAssetsListener' => LoadJsAssetsListenerFactory::class
+            'loadJsAssetsListener' => LoadJsAssetsListenerFactory::class,
+            'loadCssAssetsListener' => LoadCssAssetsListenerFactory::class
         ]
     ],
     'translator' => [],
