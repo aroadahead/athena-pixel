@@ -5,7 +5,8 @@ return [
     'author' => 'jrk',
     'listeners' => [
         ['service' => 'loadJsAssetsListener', 'enabled' => true, 'priority' => 1000],
-        ['service' => 'loadCssAssetsListener', 'enabled' => true, 'priority' => 1000]
+        ['service' => 'loadCssAssetsListener', 'enabled' => true, 'priority' => 1000],
+        ['service' => 'loadMetaAssetsListener','enabled'=>true,'priority'=>1000]
     ],
     'commands' => []
 ];

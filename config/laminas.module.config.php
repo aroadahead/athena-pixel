@@ -5,6 +5,7 @@ use AthenaPixel\Controller\Factory\IndexControllerFactory;
 use AthenaPixel\Controller\IndexController;
 use AthenaPixel\Service\Listener\Factory\LoadCssAssetsListenerFactory;
 use AthenaPixel\Service\Listener\Factory\LoadJsAssetsListenerFactory;
+use AthenaPixel\Service\Listener\Factory\LoadMetaAssetsListenerFactory;
 
 return [
     'view_manager' => [
@@ -21,7 +22,8 @@ return [
     'service_manager' => [
         'factories' => [
             'loadJsAssetsListener' => LoadJsAssetsListenerFactory::class,
-            'loadCssAssetsListener' => LoadCssAssetsListenerFactory::class
+            'loadCssAssetsListener' => LoadCssAssetsListenerFactory::class,
+            'loadMetaAssetsListener' => LoadMetaAssetsListenerFactory::class
         ]
     ],
     'translator' => [],
