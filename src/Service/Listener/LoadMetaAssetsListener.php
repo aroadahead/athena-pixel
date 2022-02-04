@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 namespace AthenaPixel\Service\Listener;
 
 use AthenaPixel\Entity\DesignPackageAsset;
@@ -10,7 +10,7 @@ use function array_push;
 
 class LoadMetaAssetsListener extends AbstractLoadAssetsListener
 {
-
+    use QueueAssetsTrait;
     /**
      * @inheritDoc
      */
