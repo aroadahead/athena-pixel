@@ -1,16 +1,17 @@
 <?php
 declare(strict_types=1);
+
 namespace AthenaPixel\Service\Listener;
 
 use AthenaPixel\Entity\DesignPackageAsset;
 use AthenaPixel\Model\DesignPackageAsset as DesignPackageAssetModel;
 use Laminas\EventManager\EventManagerInterface;
 use Laminas\Mvc\MvcEvent;
-use function array_push;
 
 class LoadMetaAssetsListener extends AbstractLoadAssetsListener
 {
     use QueueAssetsTrait;
+
     /**
      * @inheritDoc
      */
@@ -23,15 +24,15 @@ class LoadMetaAssetsListener extends AbstractLoadAssetsListener
     public function assembleAssets(MvcEvent $e): void
     {
         if (!$e -> getRequest() -> isXmlHttpRequest()) {
-            $assets = $this -> queue(DesignPackageAssetModel::getAllByMetaDesignPackage(
+            $assets = $this -> queue(DesignPackageAssetModel ::getAllByMetaDesignPackage(
                 $this -> getDesignPackageId()));
             foreach ($assets as $asset) {
-                $this->loadMeta($asset);
+                $this -> loadMeta($asset);
             }
         }
     }
 
-    protected function loadMeta(DesignPackageAsset $asset):void
+    protected function loadMeta(DesignPackageAsset $asset): void
     {
         $method = $asset -> getMethod();
         $func = $method . ucfirst($asset -> getType());
