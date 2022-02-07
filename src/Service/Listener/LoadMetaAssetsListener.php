@@ -24,17 +24,15 @@ class LoadMetaAssetsListener extends AbstractLoadAssetsListener
     public function assembleAssets(MvcEvent $e): void
     {
         if (!$e -> getRequest() -> isXmlHttpRequest()) {
+            $meta = $this -> getRenderer() -> designConfig('meta');
+            $this -> getRenderer() -> headMeta()
+                -> setCharset($meta -> charset)
+                -> setAutoEscape($meta -> autoEscape);
             $assets = $this -> queue(DesignPackageAssetModel ::getAllByMetaDesignPackage(
                 $this -> getDesignPackageId()));
             foreach ($assets as $asset) {
                 $this -> loadMeta($asset);
             }
-
-            $designMetaCharsetConfig = $this -> getRenderer() -> designConfig('meta.charset');
-            $this -> getRenderer() -> headMeta()
-                -> setCharset($designMetaCharsetConfig -> charset);
-            $this -> getRenderer() -> headMeta()
-                -> setAutoEscape($designMetaCharsetConfig -> autoEscape);
         }
     }
 
