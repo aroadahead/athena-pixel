@@ -29,7 +29,7 @@ class LoadNavigationListener extends AbstractLoadAssetsListener
             foreach ($navConf as $nav) {
                 $nav['router'] = $e -> getRouter();
             }
-            //$this->filterLoginLogout($navConf);
+            $this->filterLoginLogout($navConf);
             $nav = new ConstructedNavigationFactory($navConf);
             $this -> container -> setFactory('Navigation', $nav);
             $this -> container -> setFactory('navigation', $nav);
@@ -91,18 +91,18 @@ class LoadNavigationListener extends AbstractLoadAssetsListener
     {
         if (isset($navConf['login']) && isset($navConf['logout'])) {
             $authService = new AuthenticationService();
-            if ($authService -> hasIdentity() && $authService -> getIdentity() -> getPinValidated()) {
-                $navConf['login'] = [
-                    'id' => 5,
-                    'parentid' => 0,
-                    'label' => 'office',
-                    'route' => 'office.employee.home',
-                    'title' => 'Office',
-                    'resource' => 'office.employee.home'
-                ];
-            } else {
-                unset($navConf['logout']);
-            }
+//            if ($authService -> hasIdentity() && $authService -> getIdentity() -> getPinValidated()) {
+//                $navConf['login'] = [
+//                    'id' => 5,
+//                    'parentid' => 0,
+//                    'label' => 'office',
+//                    'route' => 'office.employee.home',
+//                    'title' => 'Office',
+//                    'resource' => 'office.employee.home'
+//                ];
+//            } else {
+//                unset($navConf['logout']);
+//            }
         }
     }
 }
