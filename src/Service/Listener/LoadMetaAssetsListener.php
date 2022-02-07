@@ -17,9 +17,8 @@ class LoadMetaAssetsListener extends AbstractLoadAssetsListener
      */
     public function attach(EventManagerInterface $events, $priority = 1)
     {
-//        $this -> attachShared($events, 'Laminas\Mvc\Controller\AbstractController', MvcEvent::EVENT_DISPATCH,
-//            [$this, 'assembleAssets'], $priority);
-        $this -> attachAs($events, MvcEvent::EVENT_DISPATCH, [$this, 'assembleAssets'], $priority);
+        $this -> attachShared($events, 'Laminas\Mvc\Controller\AbstractController', MvcEvent::EVENT_DISPATCH,
+            [$this, 'assembleAssets'], $priority);
     }
 
     public function assembleAssets(MvcEvent $e): void
