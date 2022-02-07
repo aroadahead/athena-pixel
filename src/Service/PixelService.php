@@ -2,7 +2,9 @@
 
 namespace AthenaPixel\Service;
 
-class PixelService extends \AthenaCore\Mvc\Service\MvcService
+use AthenaCore\Mvc\Service\MvcService;
+
+class PixelService extends MvcService
 {
 
 }
