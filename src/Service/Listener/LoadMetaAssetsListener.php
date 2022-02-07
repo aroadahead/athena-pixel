@@ -44,11 +44,12 @@ class LoadMetaAssetsListener extends AbstractLoadAssetsListener
                     'conditional' => $usedLocale
                 ]);
                 $this -> loadMeta($asset);
-                $alternateLocales = array_values($this -> getRenderer() -> config('i18n.language.available') -> toArray());
+                $alternateLocales = array_values($this -> getRenderer() -> config('i18n.language.available')
+                    -> toArray());
+                unset($alternateLocales[$usedLocale]);
                 foreach ($alternateLocales as $alt) {
-                    if ($alt === $usedLocale) continue;
                     $asset = new DesignPackageAsset([
-                        'method' => 'set',
+                        'method' => 'append',
                         'content' => 'og:locale:alternate',
                         'type' => 'property',
                         'conditional' => $alt
