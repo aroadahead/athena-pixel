@@ -9,7 +9,6 @@ use Laminas\EventManager\EventManagerInterface;
 use Laminas\Mvc\MvcEvent;
 use function array_filter;
 use function array_values;
-use function in_array;
 
 class LoadMetaAssetsListener extends AbstractLoadAssetsListener
 {
@@ -59,7 +58,7 @@ class LoadMetaAssetsListener extends AbstractLoadAssetsListener
                     $this -> loadMeta($asset);
                 }
                 $serverUrl = $this -> getRenderer() -> serverUrl(
-                    $meta -> og_data -> include_request_uri_in_site_name);
+                    $meta -> og_data -> request_uri_in_site_name);
                 $asset = new DesignPackageAsset([
                     'method' => 'set',
                     'content' => 'og:url',
