@@ -84,7 +84,7 @@ class LoadMetaAssetsListener extends AbstractLoadAssetsListener
                 foreach ($companyAddress as $label => $data) {
                     $asset = new DesignPackageAsset([
                         'method' => 'set',
-                        'content' => 'og:' . $label,
+                        'content' => "og:{$label}",
                         'type' => 'property',
                         'conditional' => $data
                     ]);
