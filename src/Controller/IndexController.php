@@ -10,6 +10,6 @@ class IndexController extends PixelController
 {
     public function aliveAction(): JsonModel
     {
-        return new JsonModel(['status' => 'alive']);
+        return new JsonModel(['hello' => $this -> pixelService() -> hello()]);
     }
 }

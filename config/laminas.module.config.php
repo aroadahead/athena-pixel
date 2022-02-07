@@ -3,10 +3,14 @@ declare(strict_types=1);
 
 use AthenaPixel\Controller\Factory\IndexControllerFactory;
 use AthenaPixel\Controller\IndexController;
+use AthenaPixel\Service\Factory\PixelServiceFactory;
 use AthenaPixel\Service\Listener\Factory\LoadCssAssetsListenerFactory;
 use AthenaPixel\Service\Listener\Factory\LoadJsAssetsListenerFactory;
 use AthenaPixel\Service\Listener\Factory\LoadMetaAssetsListenerFactory;
+use Laminas\Router\Http\Literal;
+use Poseidon\Poseidon;
 
+$lamins = Poseidon ::getCore() -> getLaminasManager();
 return [
     'view_manager' => [
         'template_map' => [],
@@ -23,7 +27,8 @@ return [
         'factories' => [
             'loadJsAssetsListener' => LoadJsAssetsListenerFactory::class,
             'loadCssAssetsListener' => LoadCssAssetsListenerFactory::class,
-            'loadMetaAssetsListener' => LoadMetaAssetsListenerFactory::class
+            'loadMetaAssetsListener' => LoadMetaAssetsListenerFactory::class,
+            'module.service.athena-pixel' => PixelServiceFactory::class
         ]
     ],
     'translator' => [],
@@ -31,9 +36,9 @@ return [
     'router' => [
         'routes' => [
             'pixel.alive' => [
-                'type' => 'literal',
+                'type' => Literal::class,
                 'options' => [
-                    'route' => '/pixel/alive',
+                    'route' => $lamins -> route('alive', 'pixel'),
                     'defaults' => [
                         'controller' => IndexController::class,
                         'action' => 'alive',
