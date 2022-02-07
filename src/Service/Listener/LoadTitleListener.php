@@ -32,27 +32,22 @@ class LoadTitleListener extends AbstractLoadAssetsListener
         $design = $this -> container -> get('conf') -> facade() -> getDesignConfig('layout.head_title');
         $headTitle = $this -> getRenderer() -> headTitle();
         $headTitle -> setDefaultAttachOrder($design -> default_attach_order);
-        $defaultContents = $design -> content -> toArray();
-        $func = function ($item) use ($design, $headTitle) {
-            if ($design -> prepend_default_head_title_content_first) {
-                $headTitle -> prepend($item);
-            } else {
-                $headTitle -> append($item);
-            }
-        };
+        $item = $design -> content;
         if ($design -> prepend_default_head_title_content_first) {
-            $defaultContents = array_reverse($defaultContents);
+            $headTitle -> prepend($item);
         }
-        array_walk($defaultContents, $func);
+        $routeConfig = $this -> getRenderer() -> projectRouteConfig($e -> getRouteMatch()
+            -> getMatchedRouteName());
+        $headTitle -> append($routeConfig -> title);
+        if (!$design -> prepend_default_head_title_content_first) {
+            $headTitle -> append($item);
+        }
         if ($design -> use_prefix) {
             $headTitle -> setPrefix($design -> prefix);
         }
         if ($design -> use_postfix) {
             $headTitle -> setPostfix($design -> postfix);
         }
-        $routeConfig = $this -> getRenderer() -> projectRouteConfig($e -> getRouteMatch()
-            -> getMatchedRouteName());
-        $headTitle -> append($routeConfig -> title);
         $headTitle -> setSeparator($design -> separator);
         $headTitle -> setAutoEscape($design -> autoEcape);
     }
