@@ -50,6 +50,9 @@ class LoadTitleListener extends AbstractLoadAssetsListener
         if ($design -> use_postfix) {
             $headTitle -> setPostfix($design -> postfix);
         }
+        $routeConfig = $this -> getRenderer() -> projectRouteConfig($e -> getRouteMatch()
+            -> getMatchedRouteName());
+        $headTitle -> append($routeConfig -> title);
         $headTitle -> setSeparator($design -> separator);
         $headTitle -> setAutoEscape($design -> autoEcape);
     }
