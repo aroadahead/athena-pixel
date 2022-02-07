@@ -7,7 +7,9 @@ use AthenaPixel\Entity\DesignPackageAsset;
 use AthenaPixel\Model\DesignPackageAsset as DesignPackageAssetModel;
 use Laminas\EventManager\EventManagerInterface;
 use Laminas\Mvc\MvcEvent;
+use function array_filter;
 use function array_values;
+use function in_array;
 
 class LoadMetaAssetsListener extends AbstractLoadAssetsListener
 {
@@ -46,7 +48,7 @@ class LoadMetaAssetsListener extends AbstractLoadAssetsListener
                 $this -> loadMeta($asset);
                 $alternateLocales = array_values($this -> getRenderer() -> config('i18n.language.available')
                     -> toArray());
-                unset($alternateLocales[$usedLocale]);
+                $alternateLocales = array_filter($alternateLocales, fn($e) => $e != $usedLocale);
                 foreach ($alternateLocales as $alt) {
                     $asset = new DesignPackageAsset([
                         'method' => 'append',
