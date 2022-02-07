@@ -7,6 +7,7 @@ use AthenaPixel\Service\Factory\PixelServiceFactory;
 use AthenaPixel\Service\Listener\Factory\LoadCssAssetsListenerFactory;
 use AthenaPixel\Service\Listener\Factory\LoadJsAssetsListenerFactory;
 use AthenaPixel\Service\Listener\Factory\LoadMetaAssetsListenerFactory;
+use AthenaPixel\Service\Listener\Factory\LoadNavigationListenerFactory;
 use AthenaPixel\Service\Listener\Factory\LoadTitleListenerFactory;
 use Laminas\Router\Http\Literal;
 use Poseidon\Poseidon;
@@ -30,7 +31,8 @@ return [
             'loadCssAssetsListener' => LoadCssAssetsListenerFactory::class,
             'loadMetaAssetsListener' => LoadMetaAssetsListenerFactory::class,
             'module.service.athena-pixel' => PixelServiceFactory::class,
-            'loadTitleListener' => LoadTitleListenerFactory::class
+            'loadTitleListener' => LoadTitleListenerFactory::class,
+            'loadNavigationListener' => LoadNavigationListenerFactory::class
         ]
     ],
     'translator' => [],
