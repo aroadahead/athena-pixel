@@ -32,8 +32,9 @@ class LoadMetaAssetsListener extends AbstractLoadAssetsListener
 
             $designMetaCharsetConfig = $this -> getRenderer() -> designConfig('meta.charset');
             $this -> getRenderer() -> headMeta()
-                -> setAutoEscape($designMetaCharsetConfig -> autoEscape)
                 -> setCharset($designMetaCharsetConfig -> charset);
+            $this -> getRenderer() -> headMeta()
+                -> setAutoEscape($designMetaCharsetConfig -> autoEscape);
         }
     }
 
