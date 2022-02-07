@@ -29,6 +29,11 @@ class LoadMetaAssetsListener extends AbstractLoadAssetsListener
             foreach ($assets as $asset) {
                 $this -> loadMeta($asset);
             }
+
+            $designMetaCharsetConfig = $this -> getRenderer() -> designConfig('meta.charset');
+            $this -> getRenderer() -> headMeta()
+                -> setAutoEscape($designMetaCharsetConfig -> autoEscape)
+                -> setCharset($designMetaCharsetConfig -> charset);
         }
     }
 
