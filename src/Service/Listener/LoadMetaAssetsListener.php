@@ -44,9 +44,9 @@ class LoadMetaAssetsListener extends AbstractLoadAssetsListener
                     'conditional' => $usedLocale
                 ]);
                 $this -> loadMeta($asset);
-                $alternateLocales = array_values($this->getRenderer()->config('i18n.language.available')->toArray());
-                unset($alternateLocales[$usedLocale]);
-                foreach($alternateLocales as $alt){
+                $alternateLocales = array_values($this -> getRenderer() -> config('i18n.language.available') -> toArray());
+                foreach ($alternateLocales as $alt) {
+                    if ($alt === $usedLocale) continue;
                     $asset = new DesignPackageAsset([
                         'method' => 'set',
                         'content' => 'og:locale:alternate',
@@ -78,13 +78,13 @@ class LoadMetaAssetsListener extends AbstractLoadAssetsListener
                     'conditional' => $this -> getRenderer() -> projectConfig('description')
                 ]);
                 $this -> loadMeta($asset);
-                $companyAddress = $this->getRenderer()->companyConfig('address');
-                foreach($companyAddress as $label => $data){
+                $companyAddress = $this -> getRenderer() -> companyConfig('address');
+                foreach ($companyAddress as $label => $data) {
                     $asset = new DesignPackageAsset([
-                       'method' => 'set',
-                       'content' => 'og:'.$label,
-                       'type' => 'property',
-                       'conditional' => $data
+                        'method' => 'set',
+                        'content' => 'og:' . $label,
+                        'type' => 'property',
+                        'conditional' => $data
                     ]);
                     $this -> loadMeta($asset);
                 }
