@@ -33,7 +33,8 @@ class LoadMetaAssetsListener extends AbstractLoadAssetsListener
             foreach ($assets as $asset) {
                 $this -> loadMeta($asset);
             }
-            if ($meta -> set_og_data) {
+
+            if ($meta -> og_data -> enabled) {
                 $asset = new DesignPackageAsset([
                     'method' => 'set',
                     'content' => 'og:locale',
@@ -41,11 +42,13 @@ class LoadMetaAssetsListener extends AbstractLoadAssetsListener
                     'conditional' => $e -> getRouter() -> getLastMatchedLocale()
                 ]);
                 $this -> loadMeta($asset);
+                $serverUrl = $this -> getRenderer() -> serverUrl(
+                    $meta -> og_data -> include_request_uri_in_site_name);
                 $asset = new DesignPackageAsset([
                     'method' => 'set',
                     'content' => 'og:url',
                     'type' => 'property',
-                    'conditional' => $this -> getRenderer() -> serverUrl()
+                    'conditional' => $serverUrl
                 ]);
                 $this -> loadMeta($asset);
                 $asset = new DesignPackageAsset([
