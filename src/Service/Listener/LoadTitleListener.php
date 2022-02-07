@@ -21,6 +21,14 @@ class LoadTitleListener extends AbstractLoadAssetsListener
 
     public function assembleAssets(MvcEvent $e): void
     {
+        $this -> markTriggered();
+        if (!$e -> getRequest() -> isXmlHttpRequest()) {
+            $this -> pushTitleAssets($e);
+        }
+    }
+
+    private function pushTitleAssets(MvcEvent $e)
+    {
         $design = $this -> container -> get('conf') -> facade() -> getDesignConfig('layout.head_title');
         $headTitle = $this -> getRenderer() -> headTitle();
         $headTitle -> setDefaultAttachOrder($design -> default_attach_order);

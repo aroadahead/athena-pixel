@@ -26,12 +26,9 @@ class LoadCssAssetsListener extends AbstractLoadAssetsListener
 
     public function assembleAssets(MvcEvent $e): void
     {
+        $this -> markTriggered();
         if (!$e -> getRequest() -> isXmlHttpRequest()) {
-            $assets = $this -> queue(DesignPackageAssetModel ::getAllByCssDesignPackage(
-                $this -> getDesignPackageId()));
-            foreach ($assets as $asset) {
-                array_push($this -> loadedFiles, $this -> loadCssAsset($asset));
-            }
+            $this -> pushCssAssets($e);
         }
     }
 
@@ -57,5 +54,14 @@ class LoadCssAssetsListener extends AbstractLoadAssetsListener
             $this -> prependStylesheet($filePath, $media, $conditional, $extra);
         }
         return $filePath;
+    }
+
+    private function pushCssAssets(MvcEvent $e)
+    {
+        $assets = $this -> queue(DesignPackageAssetModel ::getAllByCssDesignPackage(
+            $this -> getDesignPackageId()));
+        foreach ($assets as $asset) {
+            array_push($this -> loadedFiles, $this -> loadCssAsset($asset));
+        }
     }
 }
