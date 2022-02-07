@@ -33,6 +33,14 @@ class LoadMetaAssetsListener extends AbstractLoadAssetsListener
             foreach ($assets as $asset) {
                 $this -> loadMeta($asset);
             }
+            if($meta->set_og_locale_dynamically){
+                $asset = new DesignPackageAsset([
+                    'content' => 'og:locale',
+                    'type' => 'property',
+                    'conditional' => $e -> getRouter() -> getLastMatchedLocale()
+                ]);
+                $this -> loadMeta($asset);
+            }
         }
     }
 
