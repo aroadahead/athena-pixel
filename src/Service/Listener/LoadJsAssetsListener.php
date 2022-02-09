@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 namespace AthenaPixel\Service\Listener;
 
 use AthenaPixel\Entity\DesignPackageAsset;
@@ -56,7 +56,7 @@ class LoadJsAssetsListener extends AbstractLoadAssetsListener
 
     private function pushJsAssets(MvcEvent $e)
     {
-        $assets = $this -> queue(DesignPackageAssetModel ::getAllByJsDesignPackage(
+        $assets = $this -> queue(DesignPackageAssetModel ::getAllJs(
             $this -> getDesignPackageId()));
         foreach ($assets as $asset) {
             array_push($this -> loadedFiles, $this -> loadJsAsset($asset));

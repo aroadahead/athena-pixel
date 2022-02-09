@@ -4,32 +4,32 @@ declare(strict_types=1);
 
 namespace AthenaPixel\Model;
 
-use AthenaCore\Mvc\Application\Db\TableGateway\TableGateway;
+use Application\Model\ApplicationModel;
 use Laminas\Db\ResultSet\ResultSetInterface;
 
-class DesignPackageAsset extends TableGateway
+class DesignPackageAsset extends ApplicationModel
 {
-    public static function getAllByJsDesignPackage(int $designPackageId, bool $useModelInsteadOfEntity = false): ?ResultSetInterface
+    public static function getAllJs(int $designPackageId, bool $useModelInsteadOfEntity = false): ?ResultSetInterface
     {
-        return static::getAllByDesignPackage($designPackageId,$useModelInsteadOfEntity,'js');
+        return static::getAllAssets($designPackageId,$useModelInsteadOfEntity,'js');
     }
 
-    public static function getAllByCssDesignPackage(int $designPackageId, bool $useModelInsteadOfEntity = false): ?ResultSetInterface
+    public static function getAllCss(int $designPackageId, bool $useModelInsteadOfEntity = false): ?ResultSetInterface
     {
-        return static::getAllByDesignPackage($designPackageId,$useModelInsteadOfEntity,'css');
+        return static::getAllAssets($designPackageId,$useModelInsteadOfEntity,'css');
     }
 
-    public static function getAllByMetaDesignPackage(int $designPackageId, bool $useModelInsteadOfEntity=false):?ResultSetInterface
+    public static function getAllMeta(int $designPackageId, bool $useModelInsteadOfEntity=false):?ResultSetInterface
     {
-        return static::getAllByDesignPackage($designPackageId,$useModelInsteadOfEntity,'meta');
+        return static::getAllAssets($designPackageId,$useModelInsteadOfEntity,'meta');
     }
 
-    public static function getAllByFontsDesignPackage(int $designPackageId, bool $useModelInsteadOfEntity=false):?ResultSetInterface
+    public static function getAllFonts(int $designPackageId, bool $useModelInsteadOfEntity=false):?ResultSetInterface
     {
-        return static::getAllByDesignPackage($designPackageId,$useModelInsteadOfEntity,'font');
+        return static::getAllAssets($designPackageId,$useModelInsteadOfEntity,'font');
     }
 
-    protected static function getAllByDesignPackage(int $designPackageId, bool $useModelInsteadOfEntity,string $mode):?ResultSetInterface
+    protected static function getAllAssets(int $designPackageId, bool $useModelInsteadOfEntity, string $mode):?ResultSetInterface
     {
         $instance = new self($useModelInsteadOfEntity);
         $select = $instance->getCurrentSelect();

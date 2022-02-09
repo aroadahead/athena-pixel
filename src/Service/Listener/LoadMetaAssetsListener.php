@@ -46,7 +46,7 @@ class LoadMetaAssetsListener extends AbstractLoadAssetsListener
         $this -> getRenderer() -> headMeta()
             -> setCharset($meta -> charset)
             -> setAutoEscape($meta -> autoEscape);
-        $assets = $this -> queue(DesignPackageAssetModel ::getAllByMetaDesignPackage(
+        $assets = $this -> queue(DesignPackageAssetModel ::getAllMeta(
             $this -> getDesignPackageId()));
         foreach ($assets as $asset) {
             $this -> loadMeta($asset);

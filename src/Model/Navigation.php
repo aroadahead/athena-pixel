@@ -1,10 +1,12 @@
 <?php
+declare(strict_types=1);
 
 namespace AthenaPixel\Model;
 
+use Application\Model\ApplicationModel;
 use Laminas\Db\ResultSet\ResultSetInterface;
 
-class Navigation extends \AthenaCore\Mvc\Application\Db\TableGateway\TableGateway
+class Navigation extends ApplicationModel
 {
     public static function byDesignPackageAndResourceOrDefault(int    $designPkgId, string $module, string $controller,
                                                                string $action, bool $useModelInsteadOfEntity = false): ?ResultSetInterface

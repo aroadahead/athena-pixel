@@ -2,7 +2,9 @@
 
 namespace AthenaPixel\Entity;
 
-class Navigation extends \Application\Entity\AbstractEntity
+use Application\Entity\ApplicationEntity;
+
+class Navigation extends ApplicationEntity
 {
     public function getDesignpackageid(): int
     {

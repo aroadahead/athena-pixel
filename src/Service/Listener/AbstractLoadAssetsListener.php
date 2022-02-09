@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 namespace AthenaPixel\Service\Listener;
 
 use AthenaCore\Mvc\Service\Listener\AbstractServiceListener;

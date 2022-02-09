@@ -1,11 +1,11 @@
 <?php
-
+declare(strict_types=1);
 namespace AthenaPixel\Controller;
 
-use AthenaCore\Mvc\Controller\MvcController;
+use Application\Controller\ModuleController;
 use AthenaPixel\Service\PixelService;
 
-class PixelController extends MvcController
+class PixelModuleController extends ModuleController
 {
     public function pixelService():PixelService
     {
