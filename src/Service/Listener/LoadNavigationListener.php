@@ -29,7 +29,9 @@ class LoadNavigationListener extends AbstractLoadAssetsListener
             foreach ($navConf as $nav) {
                 $nav['router'] = $e -> getRouter();
             }
-            $this -> filterLoginLogout($navConf);
+            if ($this -> container -> get('conf') -> facade() -> getApplicationConfig('include_login_logout_nav')) {
+                $this -> filterLoginLogout($navConf);
+            }
             $nav = new ConstructedNavigationFactory($navConf);
             $this -> container -> setFactory('Navigation', $nav);
             $this -> container -> setFactory('navigation', $nav);
@@ -89,13 +91,25 @@ class LoadNavigationListener extends AbstractLoadAssetsListener
 
     private function filterLoginLogout(array &$navConf): void
     {
-        if (isset($navConf['login']) && isset($navConf['logout'])) {
-            $authService = new AuthenticationService();
-            if ($authService -> hasIdentity()) {
-                unset($navConf['login']);
-            } else {
-                unset($navConf['logout']);
-            }
+        $authService = new AuthenticationService();
+        if ($authService -> hasIdentity()) {
+            $navConf['logout'] = [
+                'id' => 1000000,
+                'parentid' => 0,
+                'label' => 'logout',
+                'route' => 'logout',
+                'title' => 'logout',
+                'resource' => 'athena-sodium.auth.logout'
+            ];
+        } else {
+            $navConf['login'] = [
+                'id' => 1000000,
+                'parentid' => 0,
+                'label' => 'login',
+                'route' => 'login',
+                'title' => 'login',
+                'resource' => 'athena-sodium.auth.login'
+            ];
         }
     }
 }
